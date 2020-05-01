@@ -2,7 +2,7 @@
 
 The different programs simulate N diploid individuals with discrete generations. Males are XY and females are XX (see article for more detailed description of the programs).
 
-main_model: standard model, with one pair of male-specific and female-specific trans acting modifiers for each gene on the sex chromosome, and asymmetric function for stabilizing selection on level of gene expression
+master: standard model, with one pair of male-specific and female-specific trans acting modifiers for each gene on the sex chromosome, and asymmetric function for stabilizing selection on level of gene expression
 
 symmetric: same as standard model, with symmetric function for stabilizing selection on level of gene expression
 

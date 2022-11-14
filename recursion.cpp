@@ -40,7 +40,7 @@ output: 0 if all loci recorded
 void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int NbPrelimv, int pasv, double s, double s_max, double I, double U_g, double U_c, double U_tm, double U_tf, double Rg, double Rc, int Rep, int output, double** allAverages)
 {
     // variables:
-    
+
 	int i, j, k, nm, gen, mut, p1, p2, indiv, site, chrom, off_sex, Nmales_1, Nfemales_1, NjuvM, NjuvF;
 	double w, wmmax, wfmax, h, dg, dc, dt, varm, moyc;
 
@@ -58,7 +58,7 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
     double expdom = -log(h0) / log(2.0);
 
     // creates result file (with parameter values in file name):
-    
+
     char fileName[256];
     stringstream nomF;
     nomF << "N" << Nv << "_nbS" << nbSv << "_NbPrelim" << NbPrelimv << "_s" << s << "_I" << I << "_sigtrans" << sigtrans << "_sigcis" << sigcis << "_Ug" << U_g << "_Uc" << U_c << "_Utm" << U_tm << "_Utf" << U_tf << "_Rg" << Rg << "_Rc" << Rc << "_Rep" << Rep << ".txt";
@@ -75,17 +75,17 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
 
     double ** measures;
     double * popAverages;
-    
+
     // will hold measures for each locus: sbarX, sbarY, hY, attractX, cisx, cisy, transmale, transfemale (see record.cpp):
-    
+
     measures = new double *[nbSv];
     for(i = 0; i < nbSv; i++)
         measures[i] = new double[8];
-    
+
     // will hold averages over the whole population: Wbarmale, WbarFemale,
     // averages over loci of sbarX, sbarY, hY, attractX, cisx, cisy, transmale, transfemale,
     // number of loci half-dead, dead, half-silenced, silenced on Y (see record.cpp):
-    
+
     if (output == 0)
         popAverages = new double [2];  // only Wbarmale, WbarFemale
     else
@@ -194,7 +194,7 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
             dc = sigtrans * gasdev();
             pop[indiv].transf[site] += dc;
         }
-        
+
         // fitnesses:
 
         wmmax = 0;
@@ -241,7 +241,7 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
         }
 
         // measures phenotypic moments and writes in result file every "pasv" generations:
-        
+
         if (gen % pasv == 0) // "gen" is the generational index (iterable) and once it reaches a multiple of the time interval per generation "pasv", write results
         {
             if (output == 0)  // records quantities for each locus individually (and writes in result file)
@@ -269,21 +269,21 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
         }
 
         // next generation (meiosis):
-        
+
 		for (j = 0; j < Nv; j++)
 		{
             do{
 				p1 = rnd.randInt(Nmales_1); // selects the father
 
 			} while (rnd.rand() > (Wtot[p1] / wmmax));
-            
+
             do{
                 p2 = rnd.randInt(Nfemales_1); // selects the mother
 
             } while (rnd.rand() > (Wtot[Nmales + p2] / wfmax));
 
             // Sex determination:
-            
+
             if (rnd.rand() < 0.5) // offspring is male
                 off_sex = 0;
             else
@@ -333,7 +333,7 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
     // writes in output file:
 
     fprintf(outFile, "\n\nResults in file ");
-    fprintf(outFile, fileName);
+    // fprintf(outFile, fileName );
     fprintf(outFile, "\n");
 
     // time length:
@@ -344,7 +344,7 @@ void recursion(int Nv, double sigtrans, double sigcis, int nbSv, int NbGenv, int
     // date and time:
 
     ptr=localtime(&fin); //  & = address of; localtime(&fin) gives the corresponding time zone time for "fin"
-    fprintf(outFile, asctime(ptr)); // ERIC: prints asctime(ptr) to the FILE stream with pointer fichierS; asctime(time) gives "time" in human-readable format
+    // fprintf(outFile, asctime(ptr)); // ERIC: prints asctime(ptr) to the FILE stream with pointer fichierS; asctime(time) gives "time" in human-readable format
 
 	// FREES MEMORY AFTER RUNNING
     for (i = 0; i < Nv; i++)
